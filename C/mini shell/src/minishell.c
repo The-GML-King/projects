@@ -1,13 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <windows.h>
-#include <ctype.h>
+#include <stdio.h> // Standard input/output library
+#include <stdlib.h> // Standard library for system calls
+#include <string.h> // String manipulation functions (note strcmp(), strcspn(), strlen())
+#include <time.h>   // Time functions
+#include <windows.h> // Win32 API (note ShellExecute() and system())
+#include <ctype.h>  // Character type functions (note isupper(), tolower())
 
-/*
-    C.A.P.Q - 
-*/
 char buff[128];
 char hlp_txt[1024] = 
 "\nThis is a simple shell program.\n"
@@ -20,7 +17,7 @@ char hlp_txt[1024] =
    "  explorer - Open File Explorer\n"
    "  execute - Opens the run dialog from explorer.exe\n\n";
 
-void cmd_translate(){
+void cmd_translate(){ // Converts string to lowercase (becauase tolower() only works on single characters)
 
     buff[strcspn(buff, "\n")] = '\0';
 
@@ -33,12 +30,14 @@ void cmd_translate(){
 }
 
 int main(int argc, char *argv[]) {
-    printf("(c) Nerdcrosoft 2025.\n");
+    printf("(c) Nerdcrosoft 2025.\n"); // Copyright notice
     printf("Type 'help' for documentation.\n");
-    while (1) {
-        printf("> ");
-        fgets(buff, sizeof(buff), stdin);
-        cmd_translate();
+    while (1) { // Command loop
+        printf("> "); 
+        fgets(buff, sizeof(buff), stdin); // Read user input safely
+        cmd_translate(); // Call string lowercase function
+
+        // Command handling
         if (strcmp(buff,"exit") == 0) {
             break;
         } else if (strcmp(buff,"help") == 0) {
@@ -63,5 +62,5 @@ int main(int argc, char *argv[]) {
             printf("Unknown command, type help for documentation.\n");
         }   
     }
-    return 0;
+    return 0; // Exit program
 }
